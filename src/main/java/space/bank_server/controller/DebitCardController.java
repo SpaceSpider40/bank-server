@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import space.bank_server.entity.account.PrivateAccount;
 import space.bank_server.entity.card.debit.DebitCard;
 import space.bank_server.repository.IDebitCardRepository;
+import space.bank_server.services.CardService;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +23,7 @@ public class DebitCardController {
     static int cardLife = 4;
 
     private IDebitCardRepository debitCardRepository;
+    private CardService cardService;
 
     //TODO: Change request body to only require user as card will be generated here
     @PostMapping("/add")
@@ -47,7 +49,7 @@ public class DebitCardController {
 //                .privateAccount(privateAccount)
 //                .build();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(debitCard);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.generateDebitCard(privateAccount));
     }
 
     private Instant generateCardExpiryDate() {
