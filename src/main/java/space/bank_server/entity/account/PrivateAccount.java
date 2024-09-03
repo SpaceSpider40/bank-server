@@ -2,7 +2,10 @@ package space.bank_server.entity.account;
 
 import jakarta.persistence.*;
 import lombok.*;
+import space.bank_server.entity.card.debit.DebitCard;
 import space.bank_server.entity.user.User;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -10,14 +13,8 @@ import space.bank_server.entity.user.User;
 @Builder
 @Table
 @Entity
-public class PrivateAccount {
+public class PrivateAccount extends Account {
 
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue
-    private Long id;
-
-    private float value;
 
     @Builder.Default
     private Currency currency = Currency.EUR;
@@ -26,5 +23,8 @@ public class PrivateAccount {
     @Getter
     @ManyToOne(optional = false)
     private User owner;
+
+    @OneToMany(targetEntity = DebitCard.class, mappedBy = "privateAccount")
+    private List<DebitCard> debitCards;
 
 }

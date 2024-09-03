@@ -32,8 +32,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(targetEntity = UserContact.class)
-    private UserContact[] userContacts;
+    @OneToMany(targetEntity = UserContact.class, mappedBy = "user")
+    private Collection<UserContact> contacts;
     
     @OneToMany(targetEntity = PrivateAccount.class, mappedBy = "owner")
     private Collection<PrivateAccount> privateAccounts;

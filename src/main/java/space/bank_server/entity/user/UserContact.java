@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Collection;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +28,7 @@ public class UserContact {
 
     @Setter
     @Getter
-    @OneToMany(mappedBy = "userContacts")
-    private Collection<User> user;
+    @ManyToOne(optional = false)
+    private User user;
 
 }

@@ -93,9 +93,9 @@ public class UserController {
             sb.append("Password is required\n");
         }
 
-        if (user.getUserContacts().length < 1){
-            sb.append("At least one contact is required\n");
-        }
+//        if (user.getUserContacts().length < 1){
+//            sb.append("At least one contact is required\n");
+//        }
 
         if (!sb.isEmpty()){
             return sb.toString();
