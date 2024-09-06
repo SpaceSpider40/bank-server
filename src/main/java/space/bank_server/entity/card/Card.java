@@ -9,11 +9,6 @@ import java.time.Instant;
 
 @MappedSuperclass
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table
-@Builder
-@Entity
 public abstract class Card {
 
     @Id
