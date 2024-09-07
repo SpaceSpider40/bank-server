@@ -28,7 +28,10 @@ public class CardService {
         DebitCard card = new DebitCard();
         card.setCardNumber(getCardNumber(card));
         card.setSecurityCode(getSecurityCode());
-
+        card.setExpiryDate(getExpiryDate());
+        card.setActive(false);
+        card.setBlocked(false);
+        card.setPrivateAccount(owner);
         return card;
     }
 

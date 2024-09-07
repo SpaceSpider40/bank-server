@@ -41,15 +41,12 @@ public class DebitCardController {
     @PostMapping("/genereate")
     private ResponseEntity<DebitCard> generateDebitCard(@RequestBody PrivateAccount privateAccount) {
 
-//        DebitCard debitCard = DebitCard.builder()
-//                .cardNumber("123")
-//                .expiryDate(Instant.now().plus(4, ChronoUnit.YEARS))
-//                .isActive(false)
-//                .isBlocked(false)
-//                .privateAccount(privateAccount)
-//                .build();
+        DebitCard debitCard = cardService.generateDebitCard(privateAccount);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.generateDebitCard(privateAccount));
+        debitCardRepository.save(debitCard);
+        debitCardRepository.flush();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(debitCard);
     }
 
     private Instant generateCardExpiryDate() {
