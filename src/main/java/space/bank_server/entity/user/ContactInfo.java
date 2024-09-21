@@ -1,8 +1,12 @@
 package space.bank_server.entity.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class ContactInfo {
     @Id
     @GeneratedValue
@@ -15,4 +19,10 @@ public class ContactInfo {
 
     @ManyToOne(targetEntity = User.class)
     private User user;
+
+    public ContactInfo(ContactInfoType type, String value, User user) {
+        this.type = type;
+        this.value = value;
+        this.user = user;
+    }
 }
