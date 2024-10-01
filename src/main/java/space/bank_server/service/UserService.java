@@ -8,13 +8,18 @@ import space.bank_server.entity.user.ContactInfo;
 import space.bank_server.entity.user.ContactInfoType;
 import space.bank_server.entity.user.User;
 import space.bank_server.exceptions.user.UserCreationException;
+import space.bank_server.repository.IContactInfoRepository;
 import space.bank_server.repository.IUserRepository;
+
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class UserService {
 
     IUserRepository userRepository;
+    IContactInfoRepository contactInfoRepository; 
 
     /**
      * validates structure of userContactInfo json node
@@ -33,10 +38,12 @@ public class UserService {
             }
         }
 
+        //TODO: validate contents
+
         return true;
     }
 
-    public void addUser(String username, String password, JsonNode userContactInfo) throws UserCreationException {
+    public User addUser(String username, String password, JsonNode userContactInfo) throws UserCreationException {
         if (username.isEmpty()){
             throw new UserCreationException("Username cannot be empty");
         }
@@ -57,5 +64,13 @@ public class UserService {
                 userContactInfo.get("value").asText(),
                 user
         );
+
+        userRepository.save(user);
+        userRepository.flush();
+
+        contactInfoRepository.save(contactInfo);
+        contactInfoRepository.flush();
+
+        return user;
     }
 }

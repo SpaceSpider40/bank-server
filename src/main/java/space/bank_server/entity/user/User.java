@@ -1,18 +1,18 @@
 package space.bank_server.entity.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import space.bank_server.entity.account.Account;
 
-import java.util.Collection;
+import java.util.List;
 
-@Getter
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @NoArgsConstructor
+@Table(name = "_user")
+@Getter
 public class User {
 
     @Id
@@ -22,14 +22,17 @@ public class User {
     String firstName;
     String lastName;
 
+    @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user")
-    private Collection<ContactInfo> contactInfo;
+    private List<ContactInfo> contactInfos;
 
-    @OneToMany(mappedBy = "owner")
-    private Collection<Account> account;
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user")
+    private List<Account> accounts;    
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 }

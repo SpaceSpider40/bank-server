@@ -1,5 +1,7 @@
 package space.bank_server.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,8 @@ public class ContactInfo {
 
     private String value;
 
-    @ManyToOne(targetEntity = User.class)
+    @JsonIgnoreProperties("user")
+    @ManyToOne
     private User user;
 
     public ContactInfo(ContactInfoType type, String value, User user) {
