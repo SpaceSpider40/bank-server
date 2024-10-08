@@ -1,4 +1,6 @@
-package space.bank_server.entity;
+package space.bank_server.entity.transfer;
+
+import java.time.Instant;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,26 +8,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import space.bank_server.entity.account.Account;
-
-import java.time.Instant;
+import space.bank_server.entity.account.Currency;
 
 @Entity
 @Getter
-public class Transfer {
+public class NeutronTransfer {
     @Id
     @GeneratedValue
     private Long id;
 
     private String title;
 
-    private Instant order_date;
-    private Instant received_date;
+    private Instant orderDate;
+    private Instant sentDate;
+    private Instant receivedDate;
+
+    private Currency currency;
 
     private long amount;
 
-    @ManyToOne(targetEntity = Account.class)
+    @ManyToOne
     private Account sender;
 
-    @ManyToOne(targetEntity = Account.class)
+    @ManyToOne
     private Account receiver;
 }

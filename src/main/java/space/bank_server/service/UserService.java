@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
+import space.bank_server.dto.user.UserCreationDTO;
 import space.bank_server.entity.user.ContactInfo;
 import space.bank_server.entity.user.ContactInfoType;
 import space.bank_server.entity.user.User;
@@ -43,7 +44,7 @@ public class UserService {
         return true;
     }
 
-    public User addUser(String username, String password, JsonNode userContactInfo) throws UserCreationException {
+    public User addUser(String username, String password, ContactInfo userContactInfo) throws UserCreationException {
         if (username.isEmpty()){
             throw new UserCreationException("Username cannot be empty");
         }
@@ -52,25 +53,23 @@ public class UserService {
             throw new UserCreationException("Password cannot be empty");
         }
 
-        validateUserContactJson(userContactInfo, true);
-
         User user = new User(
                 username,
                 password
         );
 
-        ContactInfo contactInfo = new ContactInfo(
-                ContactInfoType.valueOf(userContactInfo.get("type").asText()),
-                userContactInfo.get("value").asText(),
-                user
-        );
-
         userRepository.save(user);
         userRepository.flush();
 
-        contactInfoRepository.save(contactInfo);
+        userContactInfo.setUser(user);
+
+        contactInfoRepository.save(userContactInfo);
         contactInfoRepository.flush();
 
         return user;
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

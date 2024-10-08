@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -21,6 +22,7 @@ public class ContactInfo {
 
     @JsonIgnoreProperties("user")
     @ManyToOne
+    @Setter
     private User user;
 
     public ContactInfo(ContactInfoType type, String value, User user) {

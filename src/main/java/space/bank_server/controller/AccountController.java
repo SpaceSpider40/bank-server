@@ -1,28 +1,32 @@
 package space.bank_server.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
+import space.bank_server.dto.account.AccountCreationDTO;
 import space.bank_server.entity.account.Account;
-import space.bank_server.repository.IAccountRepository;
+import space.bank_server.service.AccountService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-
-
-@RestController("/account")
+@RestController
+@RequestMapping("/account")
 @AllArgsConstructor
 public class AccountController {
 
-    private IAccountRepository accountRepository;
+    private final AccountService accountService;
 
     @GetMapping("/")
-    public List<Account> getMethodName(@RequestParam String param) {
-        return accountRepository.findAll();
+    List<Account> all() {
+        return accountService.getAllAccounts();
     }
 
-    
-    
+    @PostMapping("/")
+    Account add(@RequestBody AccountCreationDTO accountCreationDTO) {
+        return accountService.createPrivateAccount(accountCreationDTO.getCurrency(), accountCreationDTO.getUserId());
+    }
 }

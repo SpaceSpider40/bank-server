@@ -1,10 +1,9 @@
 package space.bank_server.controller;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import org.springframework.web.bind.annotation.*;
+import space.bank_server.dto.user.UserCreationDTO;
 import space.bank_server.entity.user.User;
 import space.bank_server.exceptions.user.UserNotFountException;
 import space.bank_server.repository.IUserRepository;
@@ -25,11 +24,11 @@ public class UserController {
     }
 
     @PostMapping("/")
-    User newUser(@RequestBody ObjectNode json){
+    User newUser(@RequestBody UserCreationDTO userCreationDTO){
         return service.addUser(
-                json.get("firstName").asText(),
-                json.get("lastName").asText(),
-                json.get("userContact")
+                userCreationDTO.getFirstName(),
+                userCreationDTO.getLastName(),
+                userCreationDTO.getUserContactInfo()
         );
     }
 
