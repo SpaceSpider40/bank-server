@@ -14,7 +14,7 @@ import space.bank_server.entity.account.Account;
 import space.bank_server.service.AccountService;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/v1/account")
 @AllArgsConstructor
 public class AccountController {
 

@@ -6,12 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import space.bank_server.entity.account.Account;
 import space.bank_server.entity.account.Currency;
 
 @Entity
 @Getter
+@Setter
+@Builder
 public class NeutronTransfer {
     @Id
     @GeneratedValue

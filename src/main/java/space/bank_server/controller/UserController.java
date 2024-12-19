@@ -12,7 +12,7 @@ import space.bank_server.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @AllArgsConstructor
 public class UserController {
     private final IUserRepository userRepository;

@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import space.bank_server.entity.account.Account;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +18,6 @@ public class NeutronCreationDTO {
 
     Long amount;
 
-    Account sender;
-    Account receiver;
+    Long senderId;
+    Long receiverId;
 }
