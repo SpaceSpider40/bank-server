@@ -10,13 +10,13 @@ import space.bank_server.dto.transfer.NeutronCreationDTO;
 import space.bank_server.entity.account.Account;
 import space.bank_server.entity.transfer.NeutronTransfer;
 import space.bank_server.repository.IAccountRepository;
-import space.bank_server.repository.ITransferRepository;
+import space.bank_server.repository.INeutronTransferRepository;
 
 @Service
 @AllArgsConstructor
 public class TransferService {
 
-    private final ITransferRepository transferRepository;
+    private final INeutronTransferRepository transferRepository;
     private final IAccountRepository accountRepository;
 
     public List<NeutronTransfer> getNeutronTransfers(){
